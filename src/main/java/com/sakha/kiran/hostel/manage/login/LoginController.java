@@ -74,8 +74,8 @@ public class LoginController {
 
 	@RequestMapping(value = "/admin", method = RequestMethod.PUT)
 	public Map<String, Object> admin(HttpServletRequest request, HttpServletResponse response) {
-		userName = request.getParameter(userName);
-		passWord = request.getParameter(passWord);
+		userName = request.getParameter("userName");
+		passWord = request.getParameter("passWord");
 
 		Map<String, Object> data = new HashMap<String, Object>();
 		Map<String, Object> error = new HashMap<String, Object>();
