@@ -34,26 +34,100 @@ public class LoginController {
 		userName = request.getParameter("userName");
 		passWord = request.getParameter("passWord");
 
+		/*
+		 * Map<String, Object> error = new HashMap<String, Object>(); Map<String,
+		 * Object> data = new HashMap<String, Object>(); Map<String, Object>
+		 * detailsWarden = new HashMap<String, Object>(); List<Map<String, Object>>
+		 * admins = new ArrayList<Map<String, Object>>();
+		 * 
+		 * String query = "SELECT * FROM warden WHERE userName='" + userName + "';";
+		 * String query1 = "SELECT * FROM admin"; String query2 =
+		 * "SELECT * FROM student"; try {
+		 * 
+		 * Connection con = dbconn.getDBConnection(); //....for warden.....// Statement
+		 * st = con.createStatement(); ResultSet rs = st.executeQuery(query);
+		 * System.out.println("ResultSet:" + rs);
+		 * 
+		 * if (rs.next()) {
+		 * 
+		 * String dbPassword = rs.getObject("passWord").toString();
+		 * 
+		 * if (dbPassword.equals(passWord)) {
+		 * 
+		 * data.put("message", "Login is Successfull");
+		 * 
+		 * String dbname = rs.getObject("name").toString(); String dbeducation =
+		 * rs.getObject("education").toString(); String dbuserName =
+		 * rs.getObject("userName").toString(); String dbdesignation =
+		 * rs.getObject("designation").toString(); String dbjoiningDate =
+		 * rs.getObject("joiningDate").toString();
+		 * 
+		 * detailsWarden.put("name", dbname); detailsWarden.put("education",
+		 * dbeducation); detailsWarden.put("userName", dbuserName);
+		 * detailsWarden.put("designation", dbeducation);
+		 * detailsWarden.put("joiningDate", dbjoiningDate);
+		 * 
+		 * //....for admins.....// Statement st1 = con.createStatement(); ResultSet rs1
+		 * = st.executeQuery(query1);
+		 * 
+		 * while (rs1.next()) {
+		 * 
+		 * Map<String, Object> admin =new HashMap<String, Object>();
+		 * 
+		 * String dbname1 = rs1.getObject("name").toString(); String dbeducation1 =
+		 * rs1.getObject("education").toString(); String dbuserName1 =
+		 * rs1.getObject("userName").toString(); String dbdesignation1 =
+		 * rs1.getObject("designation").toString(); String dbjoiningDate1 =
+		 * rs1.getObject("joiningDate").toString();
+		 * 
+		 * admin.put("name", dbname1); admin.put("education", dbeducation1);
+		 * admin.put("userName", dbuserName1); admin.put("designation", dbdesignation1);
+		 * admin.put("joiningDate", dbjoiningDate1);
+		 * 
+		 * admins.add(admin); }
+		 * 
+		 * st1.close();
+		 * 
+		 * } else { data.put("message", "Password is Invalid"); }
+		 * 
+		 * }
+		 * 
+		 * //Statement st2 = con.createStatement(); //ResultSet rs2 =
+		 * st.executeQuery(query2);
+		 * 
+		 * st.close(); con.close(); //st2.close();
+		 * 
+		 * } catch (SQLException e) { error.put("code", e.getErrorCode());
+		 * error.put("error", e.getMessage()); e.printStackTrace(); } catch (Exception
+		 * e1) { error.put("code", "400"); error.put("error", e1.getMessage());
+		 * e1.printStackTrace(); }
+		 * 
+		 * data.put("yourDetails", detailsWarden); data.put("adminsDetails", admins);
+		 * 
+		 * finalresponce.put("data", data); finalresponce.put("error", error);
+		 * System.out.println("Wellcome to warden"); return finalresponce; }
+		 */
+
 		Map<String, Object> error = new HashMap<String, Object>();
 		Map<String, Object> data = new HashMap<String, Object>();
 		Map<String, Object> detailsWarden = new HashMap<String, Object>();
-        List<Map<String, Object>> admins = new ArrayList<Map<String, Object>>();
-		
+		// List<Map<String, Object>> admins = new ArrayList<Map<String, Object>>();
+
 		String query = "SELECT * FROM warden WHERE userName='" + userName + "';";
-        String query1 = "SELECT * FROM admin";
-        String query2 = "SELECT * FROM student";
+		// String query1 = "SELECT * FROM admin";
+		// String query2 = "SELECT * FROM student";
 		try {
-			
+
 			Connection con = dbconn.getDBConnection();
-			//....for warden.....//
+			// ....for warden.....//
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			System.out.println("ResultSet:" + rs);
 
 			if (rs.next()) {
-				
+
 				String dbPassword = rs.getObject("passWord").toString();
-				
+
 				if (dbPassword.equals(passWord)) {
 
 					data.put("message", "Login is Successfull");
@@ -70,43 +144,42 @@ public class LoginController {
 					detailsWarden.put("designation", dbeducation);
 					detailsWarden.put("joiningDate", dbjoiningDate);
 
-					//....for admins.....//
-					Statement st1 = con.createStatement();
-					ResultSet rs1 = st.executeQuery(query1);
-
-					while (rs1.next()) {
-	                    
-						Map<String, Object> admin =new HashMap<String, Object>();
-						
-						String dbname1 = rs1.getObject("name").toString();
-						String dbeducation1 = rs1.getObject("education").toString();
-						String dbuserName1 = rs1.getObject("userName").toString();
-						String dbdesignation1 = rs1.getObject("designation").toString();
-						String dbjoiningDate1 = rs1.getObject("joiningDate").toString();
-						
-						admin.put("name", dbname1);
-						admin.put("education", dbeducation1);
-						admin.put("userName", dbuserName1);
-						admin.put("designation", dbdesignation1);
-						admin.put("joiningDate", dbjoiningDate1);
-						
-						admins.add(admin);
-					}
-
-					st1.close();
+					// ....for admins.....//
+					/*
+					 * Statement st1 = con.createStatement(); ResultSet rs1 =
+					 * st.executeQuery(query1);
+					 * 
+					 * while (rs1.next()) {
+					 * 
+					 * Map<String, Object> admin =new HashMap<String, Object>();
+					 * 
+					 * String dbname1 = rs1.getObject("name").toString(); String dbeducation1 =
+					 * rs1.getObject("education").toString(); String dbuserName1 =
+					 * rs1.getObject("userName").toString(); String dbdesignation1 =
+					 * rs1.getObject("designation").toString(); String dbjoiningDate1 =
+					 * rs1.getObject("joiningDate").toString();
+					 * 
+					 * admin.put("name", dbname1); admin.put("education", dbeducation1);
+					 * admin.put("userName", dbuserName1); admin.put("designation", dbdesignation1);
+					 * admin.put("joiningDate", dbjoiningDate1);
+					 * 
+					 * admins.add(admin); }
+					 * 
+					 * st1.close();
+					 */
 
 				} else {
 					data.put("message", "Password is Invalid");
 				}
-				
-			} 
-			
-			//Statement st2 = con.createStatement();
-			//ResultSet rs2 = st.executeQuery(query2);
-				
+
+			}
+
+			// Statement st2 = con.createStatement();
+			// ResultSet rs2 = st.executeQuery(query2);
+
 			st.close();
 			con.close();
-			//st2.close();			
+			// st2.close();
 
 		} catch (SQLException e) {
 			error.put("code", e.getErrorCode());
@@ -118,8 +191,8 @@ public class LoginController {
 			e1.printStackTrace();
 		}
 
-		data.put("yourDetails", detailsWarden);
-		data.put("adminsDetails", admins);
+		// data.put("yourDetails", detailsWarden);
+		// data.put("adminsDetails", admins);
 
 		finalresponce.put("data", data);
 		finalresponce.put("error", error);
@@ -136,26 +209,25 @@ public class LoginController {
 		Map<String, Object> error = new HashMap<String, Object>();
 		Map<String, Object> detailsAdmin = new HashMap<String, Object>();
 		// Map<String, Map<String,Object>> detailsStudent = new HashMap<>();
+		List<Map<String, Object>> wardens = new ArrayList<Map<String, Object>>();
 		List<Map<String, Object>> students = new ArrayList<Map<String, Object>>();
 
 		String query = "SELECT * FROM admin WHERE userName='" + userName + "'";
-		String query1 = "SELECT * FROM student";
+
+		// String query1 = "SELECT * FROM student";
 		try {
 
 			// ......for admin.....//
 			Connection con = dbconn.getDBConnection();
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
-			
-			// ....for student....//
-			Statement st1 = con.createStatement();
-			ResultSet rs1 = st1.executeQuery(query1);
 
 			if (rs.next()) {
 				String dbpss = rs.getString("passWord");
 				if (dbpss.equals(passWord)) {
 					data.put("message", "Login is successfull");
 
+					int dbadminID = rs.getInt("adminID");
 					String dbname = rs.getObject("name").toString();
 					String dbeducation = rs.getObject("education").toString();
 					String dbuserName = rs.getObject("userName").toString();
@@ -167,31 +239,63 @@ public class LoginController {
 					detailsAdmin.put("userName", dbuserName);
 					detailsAdmin.put("designation", dbdesignation);
 					detailsAdmin.put("joiningDate", dbjoiningDate);
-					
+
+					String query2 = "SELECT * FROM  warden WHERE adminID=" + dbadminID + ";";
+					Statement st1 = con.createStatement();
+					ResultSet rs1 = st1.executeQuery(query2);
+
 					while (rs1.next()) {
 
-						Map<String, Object> student = new HashMap<>();
+						Map<String, Object> warden = new HashMap<>();
 
 						String dbname1 = rs1.getObject("name").toString();
 						String dbeducation1 = rs1.getObject("education").toString();
-						String dbbranch1 = rs1.getObject("branch").toString();
+						// String dbbranch1 = rs1.getObject("branch").toString();
 						String dbuserName1 = rs1.getObject("userName").toString();
 						String dbdesignation1 = rs1.getObject("designation").toString();
 						String dbjoiningDate1 = rs1.getObject("joiningDate").toString();
-						String dbroomNumber1 = rs1.getObject("roomNumber").toString();
+						// String dbroomNumber1 = rs1.getObject("roomNumber").toString();
 
-						student.put("name", dbname1);
-						student.put("education", dbeducation1);
-						student.put("branch", dbbranch1);
-						student.put("userName", dbuserName1);
-						student.put("designation", dbdesignation1);
-						student.put("joiningDate", dbjoiningDate1);
-						student.put("roomNumber", dbroomNumber1);
-						
-						students.add(student);
+						warden.put("name", dbname1);
+						warden.put("education", dbeducation1);
+						// student.put("branch", dbbranch1);
+						warden.put("userName", dbuserName1);
+						warden.put("designation", dbdesignation1);
+						warden.put("joiningDate", dbjoiningDate1);
+						// student.put("roomNumber", dbroomNumber1);
+
+						wardens.add(warden);
 
 					}
+					st1.close();
+					String query3 = "SELECT * FROM  student WHERE adminID=" + dbadminID + ";";
+					Statement st2 = con.createStatement();
+					ResultSet rs2 = st2.executeQuery(query3);
 
+					while (rs2.next()) {
+
+						Map<String, Object> student = new HashMap<>();
+
+						String dbname2 = rs2.getObject("name").toString();
+						String dbeducation2 = rs2.getObject("education").toString();
+						// String dbbranch2 = rs2.getObject("branch").toString();
+						String dbuserName2 = rs2.getObject("userName").toString();
+						String dbdesignation2 = rs2.getObject("designation").toString();
+						String dbjoiningDate2 = rs2.getObject("joiningDate").toString();
+						// String dbroomNumber1 = rs1.getObject("roomNumber").toString();
+
+						student.put("name", dbname2);
+						student.put("education", dbeducation2);
+						// student.put("branch", dbbranch2);
+						student.put("userName", dbuserName2);
+						student.put("designation", dbdesignation2);
+						student.put("joiningDate", dbjoiningDate2);
+						// student.put("roomNumber", dbroomNumber2);
+
+						students.add(student);
+					}
+					
+					st2.close();
 				}
 
 			} else {
@@ -200,9 +304,6 @@ public class LoginController {
 			}
 			st.close();
 			con.close();
-			st1.close();
-			
-			
 
 		} catch (SQLException e) {
 			error.put("code", e.getErrorCode());
@@ -215,6 +316,7 @@ public class LoginController {
 		}
 
 		data.put("yourDetails", detailsAdmin);
+		data.put("wardensDetails", wardens);
 		data.put("studentsDetails", students);
 
 		finalresponce.put("data", data);
@@ -232,7 +334,7 @@ public class LoginController {
 
 		Map<String, Object> error = new HashMap<String, Object>();
 		Map<String, Object> data = new HashMap<String, Object>();
-		Map<String, Object> detailsStudents =new HashMap<String, Object>();
+		Map<String, Object> detailsStudents = new HashMap<String, Object>();
 
 		String query = "SELECT * FROM student WHERE userName='" + userName + "';";
 
@@ -248,10 +350,9 @@ public class LoginController {
 				String dbEducation = rs.getObject("Education").toString();
 				String dbbranch = rs.getObject("branch").toString();
 				String dbuserName = rs.getObject("userName").toString();
-				String dbdesignation= rs.getObject("designation").toString();
+				String dbdesignation = rs.getObject("designation").toString();
 				String dbjoiningDate = rs.getObject("joiningDate").toString();
 				String dbroomNumber = rs.getObject("roomNumber").toString();
-				 
 
 				if (dbpass.equals(passWord)) {
 
@@ -263,7 +364,6 @@ public class LoginController {
 					detailsStudents.put("designation", dbdesignation);
 					detailsStudents.put("joiningDate", dbjoiningDate);
 					detailsStudents.put("roomNumber", dbroomNumber);
-					
 
 				} else {
 
@@ -286,8 +386,8 @@ public class LoginController {
 			error.put("error", error);
 
 		}
-		
-        data.put("studentDetails", detailsStudents);
+
+		data.put("studentDetails", detailsStudents);
 		finalresponce.put("data", data);
 		finalresponce.put("error", error);
 

@@ -30,6 +30,8 @@ public class RegistrationController {
 	String branch = null;
 	String designation = null;
 	String joiningDate = null;
+	int adminID = 0;
+	int wardenID = 0;
 	int roomNumber = 0;
 	String url = "jdbc:mysql://localhost:3306/hostel_management";
 	String uname = "root";
@@ -101,27 +103,29 @@ public class RegistrationController {
 
 	@RequestMapping(value = "/warden", method = RequestMethod.POST)
 	public Map<String, Object> warden(HttpServletRequest request, HttpServletResponse response) {
-         
-		Map<String, Object> data=new HashMap<String,Object>();
-		Map<String, Object> error=new HashMap<String,Object>();
-		
+
+		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> error = new HashMap<String, Object>();
+
 		name = request.getParameter("name");
 		education = request.getParameter("education");
 		userName = request.getParameter("userName");
 		passWord = request.getParameter("passWord");
 		designation = request.getParameter("designation");
 		joiningDate = request.getParameter("joiningDate");
+		adminID = Integer.parseInt(request.getParameter("adminID"));
 
 		System.out.println("Registration is sucessfful");
 		System.out.println("Name:" + name + " " + "Education:" + education + " " + "userName:" + userName + " "
-				+ "passWord:" + passWord + " " + "designation:" + designation + " " + "joiningDate:" + joiningDate);
+				+ "passWord:" + passWord + " " + "designation:" + designation + " " + "joiningDate:" + joiningDate
+				+ "adminId:" + adminID);
 
 		// ........ Level-3.....//
 		try {
 
 			String query = "INSERT INTO warden " + "(name, education, " + "userName, passWord, "
-					+ "designation, joiningDate)" + " VALUES(' " + name + "', '" + education + "', '" + userName
-					+ "', '" + passWord + "', '" + designation + "', '" + joiningDate + "');";
+					+ "designation, joiningDate,adminID)" + " VALUES(' " + name + "', '" + education + "', '" + userName
+					+ "', '" + passWord + "', '" + designation + "', '" + joiningDate + "','" + adminID + "');";
 
 			System.out.println("query = " + query);
 
@@ -141,20 +145,18 @@ public class RegistrationController {
 			st.close();
 			con.close();
 
-		
-
 		} catch (MySQLIntegrityConstraintViolationException e) {
 
 			error.put("code", e.getErrorCode());
 			error.put("error", e.getMessage());
-            e.printStackTrace();
+			e.printStackTrace();
 		} catch (Exception e1) {
-			error.put("code","400" );
+			error.put("code", "400");
 			error.put("error", e1.getMessage());
 			e1.getStackTrace();
 		}
-         
-		finalrsponce.put("data",data );
+
+		finalrsponce.put("data", data);
 		finalrsponce.put("error", error);
 		return finalrsponce;
 
@@ -262,16 +264,16 @@ public class RegistrationController {
 		} catch (MySQLIntegrityConstraintViolationException e) {
 			error.put("code", e.getErrorCode());
 			error.put("message", e.getMessage());
-			
+
 			e.printStackTrace();
-			
+
 		} catch (Exception e1) {
 			error.put("code", "400");
 			error.put("message", e1.getMessage());
-			
+
 			e1.printStackTrace();
 		}
-		
+
 		finalrsponce.put("data", data);
 		finalrsponce.put("error", error);
 
@@ -296,10 +298,10 @@ public class RegistrationController {
 
 	@RequestMapping(value = "/student", method = RequestMethod.POST)
 	public Map<String, Object> student(HttpServletRequest request, HttpServletResponse response) {
-          
-		Map<String, Object> data=new HashMap<String,Object>();
-		Map<String, Object> error=new HashMap<String,Object>();
-		
+
+		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> error = new HashMap<String, Object>();
+
 		name = request.getParameter("name");
 		education = request.getParameter("education");
 		branch = request.getParameter("branch");
@@ -308,21 +310,21 @@ public class RegistrationController {
 		designation = request.getParameter("designation");
 		joiningDate = request.getParameter("joiningDate");
 		roomNumber = Integer.parseInt(request.getParameter("roomNumber"));
-
-
+		adminID = Integer.parseInt(request.getParameter("adminID"));
+		wardenID = Integer.parseInt(request.getParameter("wardenID"));
+		
 		System.out.println("Registration is sucessfful");
 		System.out.println("Name:" + name + " " + "Education:" + education + " " + "branch:" + branch + " "
 				+ "userName:" + userName + " " + "passWord:" + passWord + " " + "designation:" + designation + " "
-				+ "joiningDate:" + joiningDate + " " + "roomNumber:" + roomNumber);
+				+ "joiningDate:" + joiningDate + " " + "roomNumber:" + roomNumber+"adminID:" + adminID+"wardenID:" +wardenID );
 
 		try {
 
 			String query = "INSERT INTO student " + "(name, education, branch, userName, passWord, "
-					+ "designation, joiningDate , roomNumber)" + " VALUES(' " + name + "','" + education + "', '"
-					+ branch + "','" + userName + "', '" + passWord + "', '" + designation + "', '" + joiningDate
-					+ "'," +  roomNumber + ");";
+					+ "designation, joiningDate , roomNumber , adminID , wardenID)" + " VALUES(' " + name + "','" + education + "', '"
+					+ branch + "','" + userName + "', '" + passWord + "', '" + designation + "', '" + joiningDate + "',"
+					+ roomNumber + ", " +adminID+ " ,"+wardenID+");";
 
-			
 			System.out.println("query" + query);
 
 			Class.forName("com.mysql.jdbc.Driver");
@@ -330,7 +332,7 @@ public class RegistrationController {
 
 			Statement st = con.createStatement();
 			st.execute(query);
-			
+
 			data.put("Name", name);
 			data.put("Education", education);
 			data.put("branch", branch);
@@ -339,24 +341,26 @@ public class RegistrationController {
 			data.put("designation", designation);
 			data.put("joiningDate", joiningDate);
 			data.put("roomNumber", roomNumber);
+			data.put("adminID", adminID);
+			data.put("wardenID", wardenID);
 
 			st.close();
 			con.close();
 
 		} catch (MySQLIntegrityConstraintViolationException e) {
-			
+
 			error.put("code", e.getErrorCode());
-			error.put("message",e.getMessage());
-            e.printStackTrace();
-            
+			error.put("message", e.getMessage());
+			e.printStackTrace();
+
 		} catch (Exception e1) {
 			error.put("code", "400");
 			error.put("message", e1.getMessage());
 			e1.getStackTrace();
 		}
-        finalrsponce.put("data", data);
-        finalrsponce.put("error", error);
-        
+		finalrsponce.put("data", data);
+		finalrsponce.put("error", error);
+
 		return finalrsponce;
 	}
 
